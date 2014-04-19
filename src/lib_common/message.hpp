@@ -34,6 +34,7 @@ namespace rest {
         class message :  private boost::noncopyable
         {
         public:
+            virtual ~message(){}
 
             // Adds a key and a value to the message header and returns true if the key is not present.
             // if the key is present - nothing is changed and false is returned
@@ -48,33 +49,29 @@ namespace rest {
             bool update_value(unsigned int position, const string& value);
 
             // Return the total number of key-value pairs in our header
-            size_t get_number_of_key_values() { return _headers.size();}
+            size_t get_number_of_key_values() const { return _headers.size();}
 
             // Fetches the value for a given key from the header.and returns true if found.
             // If not present false is returned.
-            bool get_value(const string& key, string& value);
+            bool get_value(const string& key, string& value) const;
 
             // Fetches the value at a given position and returns true if found
             // if position is out of bounds - false is returned
-            bool get_value(unsigned int position, string& value);
+            bool get_value(unsigned int position, string& value) const;
 
             // Fetches the key and the associated value at a given position and returns true if found
             // if position is out of bounds - false is returned
-            bool get_key_value(unsigned int position, string& key, string& value);
+            bool get_key_value(unsigned int position, string& key, string& value) const;
 
             // Iterates over the key value pairs in the header and invokes the
             // supplied function with each key-value pair
-            void iterate(std::function<void(const string&, const string&)> itor_func);
+            void iterate(std::function<void(const string&, const string&)> itor_func) const;
 
             // Fetch the payload stream for this message object
             stringstream& get_payload() { return _payload;}
 
-            // Serialize the message to a collection of const buffers
-            // Note: the underlying memory needs to be valid until the 
-            // write operation is completed.
-            vector<boost::asio::const_buffer> to_buffers();
 
-        private:
+        protected:
             // All headers consist of key-value pairs
             // where the keys are not case sensitive
             // although we store the original case

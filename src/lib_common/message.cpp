@@ -51,7 +51,7 @@ bool message::update_value(unsigned int position, const std::string& value)
 
 // Fetches the value for a given key from the header.and returns true if found.
 // If not present false is returned.
-bool message::get_value(const string& key, string& value)
+bool message::get_value(const string& key, string& value) const
 {
     auto item =_headers.get<1>().find(to_lower_copy(key));
     if (_headers.get<1>().end() == item) {
@@ -65,7 +65,7 @@ bool message::get_value(const string& key, string& value)
 
 // Fetches the value at a given position and returns true if found
 // if position is out of bounds - false is returned
-bool message::get_value(unsigned int position, string& value)
+bool message::get_value(unsigned int position, string& value) const
 {
     auto item =_headers.get<0>().begin() + position;
     if (_headers.get<0>().end() == item) {
@@ -79,7 +79,7 @@ bool message::get_value(unsigned int position, string& value)
 
 // Fetches the key and the associated value at a given position and returns true if found
 // if position is out of bounds - false is returned
-bool message::get_key_value(unsigned int position, string& key, string& value)
+bool message::get_key_value(unsigned int position, string& key, string& value) const
 {
     auto item =_headers.get<0>().begin() + position;
     if (_headers.get<0>().end() == item) {
@@ -93,7 +93,7 @@ bool message::get_key_value(unsigned int position, string& key, string& value)
 
 // Iterates over the key value pairs in the header and invokes the
 // supplied function with each key-value pair
-void message::iterate(std::function<void(const string&, const string&)> itor_func)
+void message::iterate(std::function<void(const string&, const string&)> itor_func) const
 {
     auto itor = _headers.get<0>().begin();
     size_t size = get_number_of_key_values();
@@ -101,14 +101,5 @@ void message::iterate(std::function<void(const string&, const string&)> itor_fun
         itor_func((*itor)._key, (*itor)._value);
         ++ itor;
     }
-}
-
-
-// Serialize the message to a collection of const buffers
-// Note: the underlying memory needs to be valid until the 
-// write operation is completed.
-vector<boost::asio::const_buffer> message::to_buffers()
-{
-    throw std::exception("Not implemented!");
 }
 

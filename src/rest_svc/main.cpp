@@ -6,9 +6,6 @@
 #include <boost/lexical_cast.hpp>
 
 
-#include "server.hpp"
-
-
 using namespace std;
 
 
@@ -33,12 +30,6 @@ int main(int argc, char* argv[])
             port = argv[1];
             num_threads = boost::lexical_cast<std::size_t>(argv[2]);
         }
-
-        // Initialize the service...
-        rest::svc::server svc(port, num_threads);
-
-        // ... and run it until stopped.
-        svc.run();
 
     } catch (const exception& ex) {
         cerr << "Exception: " << ex.what() << endl;

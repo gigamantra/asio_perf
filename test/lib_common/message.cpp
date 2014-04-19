@@ -25,7 +25,7 @@ void get_updated_key_value( int count, string& key, string& value )
 }
 
 
-BOOST_AUTO_TEST_SUITE( unit_test_message )
+BOOST_AUTO_TEST_SUITE( ut_message )
 
 BOOST_AUTO_TEST_CASE( add_key_value )
 {
