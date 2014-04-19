@@ -10,12 +10,15 @@
 namespace rest {
     namespace common {
 
+        class request_parser;
+
         /*
         Represents a HTTP request. It derives most of it's
         functionality from the message class
         */
         class request :  public message
         {
+            friend class request_parser;
         public:
             request(){}
 
