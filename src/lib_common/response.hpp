@@ -10,7 +10,6 @@
 
 namespace rest {
     namespace common {
-        class response_parser;
 
         /*
         Represents a HTTP response. It derives most of it's
@@ -18,8 +17,6 @@ namespace rest {
         */
         class response :  public message
         {
-            friend class response_parser;
-
         public:
             // The status of the reply. We will only support a small
             // subset of http response codes
@@ -33,15 +30,15 @@ namespace rest {
             };
 
         public:
-            // Default constructor - nothing much here for the time being
-            // the status and other contents will be filled in by a response parser
-            response() {}
-
-            // Initialize the response
-            response(status_type status): _status(status){}
-
             // Serialize this response to a vector of buffers
             void to_buffer(vector<boost::asio::const_buffer>& buffer) const;
+
+        public:
+            // Accessor
+            status_type get_status() { return _status;}
+
+            // Mutator
+            void set_status(status_type status) {_status = status;}
 
         private:
             // The status of the request

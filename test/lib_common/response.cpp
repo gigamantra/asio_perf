@@ -12,14 +12,12 @@ BOOST_AUTO_TEST_SUITE( ut_response )
 
 BOOST_AUTO_TEST_CASE( to_buffers )
 {
-    response respond(response::status_type::ok);
+    response respond;
     respond.add_key_value("hello","world");
-    respond.add_key_value("hello again","world again");
 
     vector<boost::asio::const_buffer> buffer;
     respond.to_buffer(buffer);
-
-    auto x = buffer[0];
+    buffer.clear();
 }
 
 

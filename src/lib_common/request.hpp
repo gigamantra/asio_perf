@@ -10,33 +10,28 @@
 namespace rest {
     namespace common {
 
-        class request_parser;
-
         /*
         Represents a HTTP request. It derives most of it's
         functionality from the message class
         */
         class request :  public message
         {
-            friend class request_parser;
         public:
-            request(){}
-
-            request(const string& method, const string& uri, 
-                    int http_version_major,int http_version_minor)
-                    :
-                    _method(method), _uri(uri), 
-                    _http_version_major(http_version_major), _http_version_minor(http_version_minor){}
-
-            // Override the base to_buffers
-            virtual vector<boost::asio::const_buffer> to_buffers() const;
+            // Serialize the request to a vector of buffers
+            vector<boost::asio::const_buffer> to_buffer() const;
 
         public:
             // Accessors
             const string& get_method() { return _method; }
             const string& get_uri() { return _uri; }
-            int get_http_major_verion() { return _http_version_major;}
-            int get_http_minor_verion() { return _http_version_minor;}
+            int get_http_verion_major() { return _http_version_major;}
+            int get_http_verion_minor() { return _http_version_minor;}
+
+            // Mutators
+            void set_method(const string& method ) { _method = method;}
+            void set_uri(const string& uri ) { _uri = uri;}
+            void set_http_version_major(int version) { _http_version_major = version;}
+            void set_http_version_minor(int version) { _http_version_minor = version;}
 
         private:
             string _method;
