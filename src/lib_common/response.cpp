@@ -6,7 +6,7 @@ using namespace rest::common;
 
 // A collection of http status codes that we
 // will be returning to the callers
-string status_codes[] = {
+const char* status_codes[] = {
     "HTTP/1.0 200 OK\r\n",
     "HTTP/1.0 400 Bad Request\r\n",
     "HTTP/1.0 401 Unauthorized\r\n",
@@ -21,7 +21,7 @@ const char name_value_separator[] = { ':', ' ' };
 const char crlf[] = { '\r', '\n' };
 
 // Convert a status_type to a stringified version
-const string& to_string(response::status_type status)
+const char* to_string(response::status_type status)
 {
     return status_codes[status];
 }
@@ -32,7 +32,9 @@ void response::to_buffer(vector<boost::asio::const_buffer>& buffer) const
 {
     // The vector of buffers will be written to the socket
     // First write out the status
-    buffer.push_back(boost::asio::buffer(to_string(_status)));
+    const char* status_str = to_string(_status);
+    size_t status_len = strlen( status_str );
+    buffer.push_back(boost::asio::buffer( status_str, status_len));
 
     // Get the address of the buffer for our lambda to use
     // while iterating over the key value pairs in the header

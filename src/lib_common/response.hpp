@@ -29,6 +29,9 @@ namespace rest {
                 not_implemented
             };
 
+
+            response(status_type status): _status(status){}
+
         public:
             // Serialize this response to a vector of buffers
             void to_buffer(vector<boost::asio::const_buffer>& buffer) const;
