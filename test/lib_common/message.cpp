@@ -1,4 +1,4 @@
-#include "lib_common\message.hpp"
+#include "lib_common/message.hpp"
 
 #include <boost/test/unit_test.hpp>
 #include <sstream>

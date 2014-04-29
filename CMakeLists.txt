@@ -8,8 +8,6 @@ include_directories(./src)
 # with the path relevant to your environment.
 include_directories(D:/usr/local/include)
 link_directories(D:/usr/local/lib/boost)
-link_directories(D:/usr/local/lib/poco)
-	
 	
 #Main "solution"
 project(asio_perf)

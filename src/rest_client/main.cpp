@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <boost\array.hpp>
+#include <boost/array.hpp>
 
 int main( int argc, char* argv[] )
 {
