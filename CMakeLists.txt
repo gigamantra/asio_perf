@@ -12,7 +12,7 @@ include_directories(./src)
 
 # Include the boost headers and libs
 # update according to your system
-IF(WIN64)
+IF(WIN32)
 	include_directories(D:/usr/local/include)
 	link_directories(D:/usr/local/lib/boost)
 ELSE()
